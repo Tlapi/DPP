@@ -14,9 +14,12 @@
 @property (weak, nonatomic) IBOutlet UITextView *resultView;
 @property (weak, nonatomic) IBOutlet UITextField *queryInput;
 @property (weak, nonatomic) IBOutlet UIButton *okButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *homeScrollView;
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 
 - (IBAction)okButtonClicked:(id)sender;
+
+- (NSMutableArray*)getCurrentTimetableForStaion:(NSString*)station;
 
 @end

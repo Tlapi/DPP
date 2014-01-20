@@ -22,6 +22,9 @@
 		3DE248D5188BFA770097444D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE248B7188BFA760097444D /* UIKit.framework */; };
 		3DE248DD188BFA770097444D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3DE248DB188BFA770097444D /* InfoPlist.strings */; };
 		3DE248DF188BFA770097444D /* DppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE248DE188BFA770097444D /* DppTests.m */; };
+		753F175F188D237600A24A69 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 753F175D188D237600A24A69 /* bg.jpg */; };
+		753F1760188D237600A24A69 /* bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 753F175E188D237600A24A69 /* bg@2x.jpg */; };
+		753F1762188D3E1000A24A69 /* stops.plist in Resources */ = {isa = PBXBuildFile; fileRef = 753F1761188D3E1000A24A69 /* stops.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +57,9 @@
 		3DE248DA188BFA770097444D /* DppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DppTests-Info.plist"; sourceTree = "<group>"; };
 		3DE248DC188BFA770097444D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3DE248DE188BFA770097444D /* DppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DppTests.m; sourceTree = "<group>"; };
+		753F175D188D237600A24A69 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
+		753F175E188D237600A24A69 /* bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg@2x.jpg"; sourceTree = "<group>"; };
+		753F1761188D3E1000A24A69 /* stops.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stops.plist; sourceTree = "<group>"; };
 		E6615AA19F634770855C7E38 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3494B886D2E4E8DB09D61C1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +92,7 @@
 		3DE248A7188BFA760097444D = {
 			isa = PBXGroup;
 			children = (
+				753F1761188D3E1000A24A69 /* stops.plist */,
 				3DE248B9188BFA760097444D /* Dpp */,
 				3DE248D8188BFA770097444D /* DppTests */,
 				3DE248B2188BFA760097444D /* Frameworks */,
@@ -118,6 +125,7 @@
 		3DE248B9188BFA760097444D /* Dpp */ = {
 			isa = PBXGroup;
 			children = (
+				753F175C188D237600A24A69 /* Images */,
 				3DE248C2188BFA770097444D /* AppDelegate.h */,
 				3DE248C3188BFA770097444D /* AppDelegate.m */,
 				3DE248C5188BFA770097444D /* Main.storyboard */,
@@ -156,6 +164,15 @@
 				3DE248DB188BFA770097444D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		753F175C188D237600A24A69 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				753F175D188D237600A24A69 /* bg.jpg */,
+				753F175E188D237600A24A69 /* bg@2x.jpg */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +224,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Jan Tlapák";
 				TargetAttributes = {
+					3DE248AF188BFA760097444D = {
+						DevelopmentTeam = 26G985945R;
+					};
 					3DE248D0188BFA770097444D = {
 						TestTargetID = 3DE248AF188BFA760097444D;
 					};
@@ -236,9 +256,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				753F1762188D3E1000A24A69 /* stops.plist in Resources */,
 				3DE248CC188BFA770097444D /* Images.xcassets in Resources */,
 				3DE248BE188BFA770097444D /* InfoPlist.strings in Resources */,
+				753F175F188D237600A24A69 /* bg.jpg in Resources */,
 				3DE248C7188BFA770097444D /* Main.storyboard in Resources */,
+				753F1760188D237600A24A69 /* bg@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,10 +443,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Dpp/Dpp-Prefix.pch";
 				INFOPLIST_FILE = "Dpp/Dpp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -434,10 +460,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Dpp/Dpp-Prefix.pch";
 				INFOPLIST_FILE = "Dpp/Dpp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

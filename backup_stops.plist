@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Stops</key>
+	<array>
+		<dict>
+			<key>stop_id</key>
+			<string>U953Z102</string>
+			<key>stop_name</key>
+			<string>Skalka</string>
+			<key>stop_lat</key>
+			<string>50.068435</string>
+			<key>stop_lon</key>
+			<string>14.507169</string>
+			<key>location_type</key>
+			<integer>0</integer>
+			<key>parent_station</key>
+			<string>U953N1</string>
+		</dict>
+		<dict>
+			<key>stop_id</key>
+			<string>U713Z102</string>
+			<key>stop_name</key>
+			<string>Strašnická</string>
+			<key>stop_lat</key>
+			<string>50.073336</string>
+			<key>stop_lon</key>
+			<string>14.490091</string>
+			<key>location_type</key>
+			<integer>0</integer>
+			<key>parent_station</key>
+			<string>U713N2</string>
+		</dict>
+	</array>
+</dict>
+</plist>

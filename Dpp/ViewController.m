@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "GMDirectionService.h"
 #import "TFHpple.h"
+#import "TableCell.h"
 
 @interface ViewController () <CLLocationManagerDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -16,7 +17,7 @@
 
 @implementation ViewController
 
-@synthesize locationManager;
+@synthesize locationManager, closestLines;
 
 bool called = false;
 
@@ -24,6 +25,8 @@ bool called = false;
 {
     [super viewDidLoad];
     NSLog(@"View did load");
+    
+    self.closestLines = [[NSMutableArray alloc] init];
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -197,8 +200,8 @@ bool called = false;
                         }
                         i++;
                     }
-                    NSLog(@"%@", timetable);
-                    [response addObject:timetable];
+                    //NSLog(@"%@", timetable);
+                    [self.closestLines addObject:timetable];
                     //NSMutableDictionary *timetable = [[NSMutableDictionary alloc] init];
                     
                     //[element childrenWithTagName:@"td"];
@@ -208,7 +211,8 @@ bool called = false;
                 NSLog(@"Failed %@", error);
             }];
     
-    return response;
+    NSLog(@"%@", self.closestLines);
+    return self.closestLines;
 }
 
 - (void)dealloc
@@ -223,7 +227,7 @@ bool called = false;
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
+    NSLog(@"CALLED 1");
     return 1;    //count number of row from counting array hear cataGorry is An Array
 }
 
@@ -232,22 +236,12 @@ bool called = false;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *MyIdentifier = @"Cell";
+    NSLog(@"CALLED");
+    static NSString *CellIdentifier = @"TableCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    TableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    if (cell == nil)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                       reuseIdentifier:MyIdentifier];
-    }
-    
-    // Here we use the provided setImageWithURL: method to load the web image
-    // Ensure you use a placeholder image otherwise cells will be initialized with no image
-    /*
-    [cell.imageView setImageWithURL:[NSURL URLWithString:@"http://example.com/image.jpg"]
-                   placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    cell.textLabel.text = @"My Text";*/
+    //cell.direction.text = @"Direction";
     return cell;
 }
 

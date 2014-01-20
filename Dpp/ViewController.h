@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *homeScrollView;
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain) NSMutableArray *closestLines;
 
 - (IBAction)okButtonClicked:(id)sender;
 

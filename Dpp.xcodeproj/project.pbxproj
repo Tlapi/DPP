@@ -25,6 +25,7 @@
 		753F175F188D237600A24A69 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 753F175D188D237600A24A69 /* bg.jpg */; };
 		753F1760188D237600A24A69 /* bg@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 753F175E188D237600A24A69 /* bg@2x.jpg */; };
 		753F1762188D3E1000A24A69 /* stops.plist in Resources */ = {isa = PBXBuildFile; fileRef = 753F1761188D3E1000A24A69 /* stops.plist */; };
+		753F1765188D6CA700A24A69 /* TableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 753F1764188D6CA700A24A69 /* TableCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		753F175D188D237600A24A69 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
 		753F175E188D237600A24A69 /* bg@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg@2x.jpg"; sourceTree = "<group>"; };
 		753F1761188D3E1000A24A69 /* stops.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stops.plist; sourceTree = "<group>"; };
+		753F1763188D6CA700A24A69 /* TableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableCell.h; path = ../TableCell.h; sourceTree = "<group>"; };
+		753F1764188D6CA700A24A69 /* TableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableCell.m; path = ../TableCell.m; sourceTree = "<group>"; };
 		E6615AA19F634770855C7E38 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3494B886D2E4E8DB09D61C1 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,6 +134,8 @@
 				3DE248C5188BFA770097444D /* Main.storyboard */,
 				3DE248C8188BFA770097444D /* ViewController.h */,
 				3DE248C9188BFA770097444D /* ViewController.m */,
+				753F1763188D6CA700A24A69 /* TableCell.h */,
+				753F1764188D6CA700A24A69 /* TableCell.m */,
 				3DE248CB188BFA770097444D /* Images.xcassets */,
 				3DE248BA188BFA760097444D /* Supporting Files */,
 			);
@@ -315,6 +320,7 @@
 			files = (
 				3DE248CA188BFA770097444D /* ViewController.m in Sources */,
 				3DE248C4188BFA770097444D /* AppDelegate.m in Sources */,
+				753F1765188D6CA700A24A69 /* TableCell.m in Sources */,
 				3DE248C0188BFA770097444D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

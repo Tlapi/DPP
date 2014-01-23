@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lineNumber;
 @property (weak, nonatomic) IBOutlet UILabel *via;
 @property (weak, nonatomic) IBOutlet UILabel *direction;
+@property (weak, nonatomic) IBOutlet UILabel *departureTimeIn;
+@property (weak, nonatomic) IBOutlet UIImageView *lineIcon;
 
 @end

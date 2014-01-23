@@ -11,10 +11,14 @@
 
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *mainHours;
+@property (weak, nonatomic) IBOutlet UILabel *mainDate;
+
 @property (weak, nonatomic) IBOutlet UITextView *resultView;
 @property (weak, nonatomic) IBOutlet UITextField *queryInput;
 @property (weak, nonatomic) IBOutlet UIButton *okButton;
 @property (weak, nonatomic) IBOutlet UIScrollView *homeScrollView;
+@property (weak, nonatomic) IBOutlet UITableView *closestTableView;
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) NSMutableArray *closestLines;

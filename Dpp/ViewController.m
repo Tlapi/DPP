@@ -17,7 +17,7 @@
 
 @implementation ViewController
 
-@synthesize locationManager, closestLines;
+@synthesize locationManager, closestLines, closestTableView;
 
 bool called = false;
 
@@ -32,7 +32,22 @@ bool called = false;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.delegate = self;
     
-    NSLog(@"%@", [self getCurrentTimetableForStaion:@"Maniny"]);
+    [self.locationManager startUpdatingLocation];
+    
+    NSDate *currDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSString *curTime = [dateFormatter stringFromDate:currDate];
+    
+    self.mainHours.text = curTime;
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
+    
+    //NSLog(@"%@", [self getCurrentTimetableForStaion:@"Maniny"]);
     //[self.locationManager startUpdatingLocation];
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -47,7 +62,6 @@ bool called = false;
 {
     [self.view endEditing:YES];
     self.resultView.text = @"loading";
-    [self.locationManager startUpdatingLocation];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -81,6 +95,7 @@ bool called = false;
                     [deltaStop setObject:[NSNumber numberWithFloat:delta] forKey:@"delta"];
                     [stopDeltasStops addObject:deltaStop];
                     [stopsRegistered addObject:[stop objectForKey:@"stop_name"]];
+                    [self getCurrentTimetableForStaion:[NSString stringWithFormat:@"%@", [stop objectForKey:@"stop_name"]]];
                 }
             }
         }
@@ -90,7 +105,7 @@ bool called = false;
         // sort stations by closest
         NSArray *sortedArray = [stopDeltasStops sortedArrayUsingDescriptors:sortDescriptors];
         
-        NSLog(@"%@", sortedArray);
+        //NSLog(@"%@", sortedArray);
         
         // Get timetables for each station
         
@@ -167,12 +182,20 @@ bool called = false;
     NSString *dateString = [dateFormatter stringFromDate:currDate];
     [dateFormatter setDateFormat:@"HH"];
     NSString *timeString = [dateFormatter stringFromDate:currDate];
+    [dateFormatter setDateFormat:@"H"];
+    NSString *hourString = [dateFormatter stringFromDate:currDate];
+    [dateFormatter setDateFormat:@"m"];
+    NSString *minutesString = [dateFormatter stringFromDate:currDate];
     
-    NSMutableArray *response = [[NSMutableArray alloc] init];
+    //NSLog(@"%@ %@", hourString, minutesString);
     
-    NSLog(@"URL %@", [NSString stringWithFormat:@"DepForm.aspx?date=%@&time=14%%3a08&from=Maniny%%7c30103%%7c1739&isdep=1&sp=0&combidabs=UElEXDAwODNiMmY4YThiNjQ5OWY4N2NjZjhkY2M1NWEwZjg0IzU-&reftime=%@%%3a00", dateString, timeString]);
+    //NSMutableArray *response = [[NSMutableArray alloc] init];
     
-    [client getPath:[NSString stringWithFormat:@"DepForm.aspx?date=%@&time=14%%3a08&from=Maniny%%7c30103%%7c1739&isdep=1&sp=0&combidabs=UElEXDAwODNiMmY4YThiNjQ5OWY4N2NjZjhkY2M1NWEwZjg0IzU-&reftime=%@%%3a00", dateString, timeString]
+    NSLog(@"URL %@", [NSString stringWithFormat:@"DepForm.aspx?date=%@&time=14%%3a08&from=%@%%7c30103%%7c1739&isdep=1&sp=0&combidabs=UElEXDAwODNiMmY4YThiNjQ5OWY4N2NjZjhkY2M1NWEwZjg0IzU-&reftime=%@%%3a00", dateString, station, timeString]);
+    
+    [closestTableView setDelegate:self];
+    
+    [client getPath:[NSString stringWithFormat:@"DepForm.aspx?date=%@&time=14%%3a08&from=%@%%7c30103%%7c1739&isdep=1&sp=0&combidabs=UElEXDAwODNiMmY4YThiNjQ5OWY4N2NjZjhkY2M1NWEwZjg0IzU-&reftime=%@%%3a00", dateString, [station  stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], timeString]
          parameters:nil
             success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 //NSLog(@"Success %@", operation.responseString);
@@ -188,20 +211,52 @@ bool called = false;
                     NSArray *timetableCols = [element childrenWithTagName:@"td"];
                     int i = 0;
                     NSMutableDictionary *timetable = [[NSMutableDictionary alloc] init];
+                    [timetable setObject:station forKey:@"via"];
+                    bool skip = true;
                     for (TFHppleElement *column in timetableCols) {
                         if(i==0){
                             [timetable setObject:[column text] forKey:@"dep_time"];
+                            NSArray* timeComponents = [[column text] componentsSeparatedByString: @":"];
+                            NSString *depHour = [timeComponents objectAtIndex:0];
+                            NSString *depMinute = [timeComponents objectAtIndex:1];
+                            if([depHour floatValue] >= [hourString floatValue]){
+                                if([depMinute floatValue] > [minutesString floatValue] || [depHour floatValue] > [hourString floatValue]){
+                                    skip = false;
+                                    float depin = 0;
+                                    if([depHour floatValue] == [hourString floatValue]){
+                                        depin = [depMinute floatValue] - [minutesString floatValue];
+                                    } else {
+                                        depin = 60 - [minutesString floatValue] + [depMinute floatValue];
+                                    }
+                                    [timetable setObject:[NSNumber numberWithFloat:floor(depin)] forKey:@"dep_in"];
+                                } else {
+                                    skip = true;
+                                }
+                            } else {
+                                skip = true;
+                            }
+
                         }
                         if(i==1){
-                            [timetable setObject:[[column firstChildWithTagName:@"p" ] text] forKey:@"destination"];
+                            [timetable setObject:[[[column firstChildWithTagName:@"p" ] text] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] forKey:@"destination"];
                         }
                         if(i==3){
-                            [timetable setObject:[[column firstChildWithTagName:@"a" ] text] forKey:@"line"];
+                            [timetable setObject:[[[column firstChildWithTagName:@"a" ] text] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] forKey:@"line"];
+                            [timetable setObject:[[[[column firstChildWithTagName:@"a" ] attributes] objectForKey:@"href" ] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] forKey:@"detail_url"];
                         }
                         i++;
                     }
                     //NSLog(@"%@", timetable);
-                    [self.closestLines addObject:timetable];
+                    if(!skip){
+                        [self.closestLines addObject:timetable];
+                        
+                        NSSortDescriptor *deltaDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dep_in" ascending:YES];
+                        NSArray *sortDescriptors = [NSMutableArray arrayWithObject:deltaDescriptor];
+                        // sort stations by closest
+                        [self.closestLines sortUsingDescriptors:sortDescriptors];
+                        //NSLog(@"%@", self.closestLines);
+                        [closestTableView reloadData];
+                    }
                     //NSMutableDictionary *timetable = [[NSMutableDictionary alloc] init];
                     
                     //[element childrenWithTagName:@"td"];
@@ -211,7 +266,8 @@ bool called = false;
                 NSLog(@"Failed %@", error);
             }];
     
-    NSLog(@"%@", self.closestLines);
+    //NSLog(@"%@", self.closestLines);
+    
     return self.closestLines;
 }
 
@@ -227,22 +283,45 @@ bool called = false;
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"CALLED 1");
-    return 1;    //count number of row from counting array hear cataGorry is An Array
+    //NSLog(@"CALLED 1");
+    //NSLog(@"%@", self.closestLines);
+    return [self.closestLines count];    //count number of row from counting array hear cataGorry is An Array
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"CALLED");
+    //NSLog(@"CALLED");
     static NSString *CellIdentifier = @"TableCell";
     
     TableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    NSArray* directionComponents = [[[self.closestLines objectAtIndex:indexPath.row] objectForKey:@"destination"] componentsSeparatedByString: @" - "];
+    
+    cell.lineNumber.text = [[self.closestLines objectAtIndex:indexPath.row] objectForKey:@"line"];
+    cell.direction.text = [NSString stringWithFormat:@"%@ ➞ %@",[[self.closestLines objectAtIndex:indexPath.row] objectForKey:@"via"], [directionComponents objectAtIndex:0]];
+    cell.departureTimeIn.text = [NSString stringWithFormat:@"za %@ min.", [[self.closestLines objectAtIndex:indexPath.row] objectForKey:@"dep_in"]];
+    //cell.via.text = [[self.closestLines objectAtIndex:indexPath.row] objectForKey:@"via"];
+    
+    if([[[self.closestLines objectAtIndex:indexPath.row] objectForKey:@"line"] integerValue] < 100){
+        UIImage *image = [UIImage imageNamed:@"tram.png"];
+        cell.lineIcon.image = image;
+    } else if([[[self.closestLines objectAtIndex:indexPath.row] objectForKey:@"line"] integerValue] < 1000){
+        UIImage *image = [UIImage imageNamed:@"bus.png"];
+        cell.lineIcon.image = image;
+    } else {
+        UIImage *image = [UIImage imageNamed:@"metro.png"];
+        cell.lineIcon.image = image;
+    }
+    
     //cell.direction.text = @"Direction";
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //NSLog(@"clicked");
+    [self performSegueWithIdentifier:@"LineDetail" sender:self];
 }
 
 @end

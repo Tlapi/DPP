@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1A3F95C5DB16422AB2B65DA6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E6615AA19F634770855C7E38 /* libPods.a */; };
+		3DB65869188EFCAB00F750FC /* bus.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB65868188EFCAB00F750FC /* bus.png */; };
+		3DB6586B188EFF2500F750FC /* bus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB6586A188EFF2500F750FC /* bus@2x.png */; };
+		3DB65870188F001D00F750FC /* metro.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB6586C188F001D00F750FC /* metro.png */; };
+		3DB65871188F001D00F750FC /* metro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB6586D188F001D00F750FC /* metro@2x.png */; };
+		3DB65872188F001D00F750FC /* tram.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB6586E188F001D00F750FC /* tram.png */; };
+		3DB65873188F001D00F750FC /* tram@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB6586F188F001D00F750FC /* tram@2x.png */; };
 		3DE248B4188BFA760097444D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE248B3188BFA760097444D /* Foundation.framework */; };
 		3DE248B6188BFA760097444D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE248B5188BFA760097444D /* CoreGraphics.framework */; };
 		3DE248B8188BFA760097444D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE248B7188BFA760097444D /* UIKit.framework */; };
@@ -39,6 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3DB65868188EFCAB00F750FC /* bus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bus.png; sourceTree = "<group>"; };
+		3DB6586A188EFF2500F750FC /* bus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bus@2x.png"; sourceTree = "<group>"; };
+		3DB6586C188F001D00F750FC /* metro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metro.png; sourceTree = "<group>"; };
+		3DB6586D188F001D00F750FC /* metro@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "metro@2x.png"; sourceTree = "<group>"; };
+		3DB6586E188F001D00F750FC /* tram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tram.png; sourceTree = "<group>"; };
+		3DB6586F188F001D00F750FC /* tram@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tram@2x.png"; sourceTree = "<group>"; };
 		3DE248B0188BFA760097444D /* Dpp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dpp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE248B3188BFA760097444D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3DE248B5188BFA760097444D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -174,6 +186,12 @@
 		753F175C188D237600A24A69 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3DB6586C188F001D00F750FC /* metro.png */,
+				3DB6586D188F001D00F750FC /* metro@2x.png */,
+				3DB6586E188F001D00F750FC /* tram.png */,
+				3DB6586F188F001D00F750FC /* tram@2x.png */,
+				3DB6586A188EFF2500F750FC /* bus@2x.png */,
+				3DB65868188EFCAB00F750FC /* bus.png */,
 				753F175D188D237600A24A69 /* bg.jpg */,
 				753F175E188D237600A24A69 /* bg@2x.jpg */,
 			);
@@ -261,9 +279,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DB65872188F001D00F750FC /* tram.png in Resources */,
+				3DB65871188F001D00F750FC /* metro@2x.png in Resources */,
+				3DB65870188F001D00F750FC /* metro.png in Resources */,
 				753F1762188D3E1000A24A69 /* stops.plist in Resources */,
+				3DB6586B188EFF2500F750FC /* bus@2x.png in Resources */,
+				3DB65869188EFCAB00F750FC /* bus.png in Resources */,
 				3DE248CC188BFA770097444D /* Images.xcassets in Resources */,
 				3DE248BE188BFA770097444D /* InfoPlist.strings in Resources */,
+				3DB65873188F001D00F750FC /* tram@2x.png in Resources */,
 				753F175F188D237600A24A69 /* bg.jpg in Resources */,
 				3DE248C7188BFA770097444D /* Main.storyboard in Resources */,
 				753F1760188D237600A24A69 /* bg@2x.jpg in Resources */,
